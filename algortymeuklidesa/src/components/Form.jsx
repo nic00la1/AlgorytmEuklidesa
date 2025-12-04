@@ -1,43 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Form = () => {
 
-//   const [liczbaA, setLiczbaA] = useState('');
-//   const [liczbaB, setLiczbaB] = useState('');
-//   const liczbaAsNumber = Number(20);
+  const [liczbaA, setLiczbaA] = useState('');
+  const [liczbaB, setLiczbaB] = useState('');
+  const [wynik, setWynik] = useState(null);
 
-  // Oryginalne wyniki (do console.log)
-  let a = 48;
-  let b = 18;
+  function ObliczNWD(a, b) {
+    a = Number(a);
+    b = Number(b);
 
-  let liczbaA = a;
-  let liczbaB = b;
-
-  while (liczbaB != 0) {
-    let reszta = liczbaA % liczbaB;
-    liczbaA = liczbaB;
-    liczbaB = reszta
+    while (b !== 0) {
+        let reszta = a % b;
+        a = b;
+        b = reszta;
+    }
+    return a;
   }
- 
-  console.log(`NWD(${a}, ${b}): ${liczbaA}`);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const wynikNWD = ObliczNWD(liczbaA, liczbaB);
+    setWynik(wynikNWD);
+  };
 
   return (
     <div>
       <h1>Algorytm Euklidesa</h1>
       <h3>Obliczanie NWD - Największa Wspólna Wielokrotność</h3>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Podaj 1 liczbę</label>
         <input type="text" 
-                value={liczbaA}/>
+                value={liczbaA}
+                onChange={(e) => setLiczbaA(e.target.value)}/>
+
         <label>Podaj 2 liczbę</label>
         <input type="text" 
-                value={liczbaB}/>
+                value={liczbaB}
+                onChange={(e) => setLiczbaB(e.target.value)}/>
+
         <button>Oblicz</button>
       </form>
 
       {/* Miejsce wynikowe - W którym jest przedstawione obliczenie algorytmu */}
       <p>Wynik: 
-        <span>elo</span>
+        <span>{wynik !== null ? wynik : '---'}</span>
       </p>
     </div>
   )
