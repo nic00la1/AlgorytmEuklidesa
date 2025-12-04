@@ -12,6 +12,11 @@ const Form = () => {
         <input type="text" />
         <button>Oblicz</button>
       </form>
+
+      {/* Miejsce wynikowe - W którym jest przedstawione obliczenie algorytmu */}
+      <p>Wynik: 
+        <span>elo</span>
+      </p>
     </div>
   )
 }
